@@ -2,6 +2,7 @@ import axios from "axios";
 import { UserCard } from "./components/UserCard";
 import "./styles.css";
 import { User } from "./types/api/user";
+import { useState } from "react";
 
 const user = {
   id: 1,
@@ -11,12 +12,12 @@ const user = {
 };
 
 export default function App() {
-  const [userProfile, setuserProfiles] = userState<Array<userProfile>>([]);
+  const [userProfile, setuserProfiles] = useState<Array<userProfile>>([]);
   const onClickFetchUser = () => {
     axios
       .get<Array<User>>("https://jsonplaceholder.typicode.com/users")
       .then((res) => {
-        const data = res.data.map(user);
+        //
       });
   };
   return (
