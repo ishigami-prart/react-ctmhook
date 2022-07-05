@@ -12,18 +12,26 @@ const user = {
 };
 
 export default function App() {
-  const [userProfile, setuserProfiles] = useState<Array<userProfile>>([]);
+  const [userProfile, setUserProfiles] = useState<Array<userProfile>>([]);
   const onClickFetchUser = () => {
     axios
       .get<Array<User>>("https://jsonplaceholder.typicode.com/users")
       .then((res) => {
-        //
+        const data = res.data.map((user) => ({
+          id: user.id,
+          name: `${user.name}(${user.username})`,
+          email: user.email,
+          adress: `${user.address.city}${user.address.suite}${user.address.street}`
+        }));
+        setUserProfiles(data);
       });
   };
   return (
     <div className="App">
       <button onClick={onClickFetchUser}>データ取得</button>
-      <UserCard user={user} />
+      {setUserProfiles.map((user) => (
+        <UserCard key={user.id} user={user} />
+      ))}
     </div>
   );
 }
